@@ -41,7 +41,7 @@ fn respond_to_message(authored_message: AuthoredMessage) -> Option<Message> {
 
 fn api_authenticate() -> Option<String> {
     // authenticate with wikiart, only necessary once per 2 hours, need to write that as a check or something
-    let res_auth_string = get("https://www.wikiart.org/en/Api/2/login?accessCode=91dfc0e379c54835&secretCode=b2d26dabbc897c18")
+    let res_auth_string = get("https://www.wikiart.org/en/Api/2/login?accessCode=****&secretCode=******")
     .ok()?.text().ok()?;
     let res_auth_json = json::parse(&res_auth_string).ok()?;
     let api_key = res_auth_json["SessionKey"].clone(); 
@@ -50,7 +50,7 @@ fn api_authenticate() -> Option<String> {
 }
 
 fn main() {
-    let chat_bot = Chatbot::new_with_local_config(respond_to_message, "~bacrys", "chat-3658");
+    let chat_bot = Chatbot::new_with_local_config(respond_to_message, "~ship-name", "chat-name");
     //let key = api_authenticate();
     chat_bot.run();
 }
