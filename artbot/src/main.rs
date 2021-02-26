@@ -23,6 +23,9 @@ fn respond_to_message(authored_message: AuthoredMessage) -> Option<Message> {
         let res_json = json::parse(&res_string).ok()?;
         // Get the image link from the json
         let img_url = res_json["data"][0]["image"].clone();
+        let painting_title = res_json["data"][0]["title"].clone();
+        let painting_painter = res_json["data"][0]["artistName"].clone();
+        let painting_year = res_json["data"][0]["completitionYear"].clone();
         // Check if no price was returned, meaning crypto wasn't found in coingecko api
         if img_url.is_null() {
             // Return error message
@@ -31,8 +34,12 @@ fn respond_to_message(authored_message: AuthoredMessage) -> Option<Message> {
         // Else price acquired and is to be returned
         else {
             // Return the price Message
-            return Some(Message::new().add_url(&format!("{}", img_url)));
-        }
+            return Some(Message::new().add_url(&format!("{}", img_url))
+                                      .add_text(&format!("\n {}, By {} ({})",
+                                                        painting_title, 
+                                                        painting_painter,
+                                                        painting_year)));
+        }                   
     }
 
     // Otherwise do not respond to message
@@ -41,7 +48,8 @@ fn respond_to_message(authored_message: AuthoredMessage) -> Option<Message> {
 
 fn api_authenticate() -> Option<String> {
     // authenticate with wikiart, only necessary once per 2 hours, need to write that as a check or something
-    let res_auth_string = get("https://www.wikiart.org/en/Api/2/login?accessCode=****&secretCode=******")
+    // gotta get an api key at wikiart.
+    let res_auth_string = get("https://www.wikiart.org/en/Api/2/login?accessCode=API_KEY_HERE")
     .ok()?.text().ok()?;
     let res_auth_json = json::parse(&res_auth_string).ok()?;
     let api_key = res_auth_json["SessionKey"].clone(); 

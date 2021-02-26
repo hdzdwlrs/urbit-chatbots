@@ -1,5 +1,5 @@
 [package]
-name = "crypto-prices-chatbot"
+name = "poll-bot"
 version = "0.1.0"
 authors = ["Robert Kornacki <11645932+robkorn@users.noreply.github.com>", "ben mccormick"]
 edition = "2018"
@@ -11,4 +11,3 @@ urbit-chatbot-framework          = {version = "0.1.0", path="../.."}
 json                             = "0.12.4"
 reqwest                          = "0.11.0"
 rand                             = "0.8.0"
-regex                            = "1"
