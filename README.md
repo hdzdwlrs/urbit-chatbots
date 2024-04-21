@@ -1,3 +1,6 @@
+repo deprecated due to countless breaking changes, none well-documented, to the urbit platform. find a different OS
+
+
 # urbit-chatbots
 Some chatbots for urbit. Liable to break!
 
